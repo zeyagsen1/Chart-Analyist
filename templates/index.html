@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Grafik Soru-Cevap</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f4f9;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .container {
+            background-color: white;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+            padding: 20px;
+            max-width: 500px;
+            width: 100%;
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+
+        label {
+            font-size: 14px;
+            color: #555;
+            margin-bottom: 5px;
+        }
+
+        input[type="file"],
+        input[type="text"] {
+            padding: 10px;
+            margin-bottom: 20px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 14px;
+        }
+
+        input[type="submit"] {
+            padding: 10px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s ease;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #45a049;
+        }
+
+        .answer {
+            margin-top: 20px;
+            background-color: #f9f9f9;
+            border-left: 4px solid #4CAF50;
+            padding: 10px;
+            font-size: 16px;
+            color: #333;
+        }
+
+        .uploaded-image {
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        .uploaded-image img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 5px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Grafik Soru-Cevap</h1>
+        <form action="/" method="POST" enctype="multipart/form-data">
+            <label for="image">Resim Yükle:</label>
+            <input type="file" name="image" id="image" required>
+
+            <label for="question">Sorunuzu Yazın:</label>
+            <input type="text" name="question" id="question" required>
+
+            <input type="submit" value="Cevapla">
+        </form>
+
+        {% if uploaded_image %}
+        <div class="uploaded-image">
+            <h2>Yüklenen Resim:</h2>
+            <img src="{{ url_for('yuklenen_dosya', filename=uploaded_image) }}" alt="Yüklenen Resim">
+        </div>
+        {% endif %}
+
+        {% if answer %}
+        <div class="answer">
+            <h2>Cevap:</h2>
+            <p>{{ answer }}</p>
+        </div>
+        {% endif %}
+    </div>
+</body>
+</html>
